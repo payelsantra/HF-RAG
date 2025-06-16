@@ -17,7 +17,7 @@ This repository allows the replication of all results reported in the papers. In
     - [L-RAG](#L-RAG)
     - [U-RAG](#U-RAG)
     - [LU-RAG](#LU-RAG)
-    - [HF-RAG] (#HF-RAG)
+    - [HF-RAG](#HF-RAG)
 
 ## Prerequisites
 We recommend running all the things in a Linux environment. 
