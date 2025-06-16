@@ -1,6 +1,6 @@
 # HF-RAG
 
-This is the repository for the paper: `Analyzing the Role of Retrieval Models in Labeled and Unlabeled Context Selection for Fact Verification`.
+This is the repository for the paper: `HF-RAG: Hierarchical Fusion-based Retrieval-Augmented Generation with Multiple Sources and Rankers`.
 
 This repository allows the replication of all results reported in the papers. In particular, it is organized as follows:
 - [Prerequisites](#Prerequisites)
@@ -17,6 +17,7 @@ This repository allows the replication of all results reported in the papers. In
     - [L-RAG](#L-RAG)
     - [U-RAG](#U-RAG)
     - [LU-RAG](#LU-RAG)
+    - [HF-RAG] (#HF-RAG)
 
 ## Prerequisites
 We recommend running all the things in a Linux environment. 
