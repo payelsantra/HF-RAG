@@ -18,7 +18,6 @@ This repository allows the replication of all results reported in the papers. In
 -  [Replicating Results](#Replicating-Results)
     - [L-RAG](#L-RAG)
     - [U-RAG](#U-RAG)
-    - [LU-RAG](#LU-RAG)
     - [HF-RAG](#HF-RAG)
  
 ## Implementation Details
@@ -175,4 +174,15 @@ For this paper, we uniformly retrieved the top 50 candidates.
      --data_path "/home/user/data/data.csv" \
      --wiki_retrieved_path  "/home/user/result/bm25_test_ret_wiki.pickle" \
      --true_pred_dict_file "/home/user/result/3_class/rag_predicted_dict_shot.pickle"
+```
+
+### HF-RAG
+
+```
+!python3 fusion.py \
+     --k give_the_corresponding_unlabeled_context \
+     --models "TheBloke/Llama-2-70B-Chat-AWQ" \
+     --data_path "/home/user/data/data.csv" \
+     --wiki_retrieved_path  "/home/user/result/fused.pickle" \
+     --true_pred_dict_file "/home/user/result/3_class/hfrag_predicted_dict_shot.pickle"
 ```
