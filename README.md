@@ -1,7 +1,7 @@
 # HF-RAG
 
 This is the repository for the paper: `HF-RAG: Hierarchical Fusion-based Retrieval-Augmented Generation with Multiple Sources and Rankers`.
-The codes will be released in more detail after publication.
+The codes will be released in more detail after acceptance.
 
 This repository allows the replication of all results reported in the papers. In particular, it is organized as follows:
 - [Implementation Details] (#Implementation Details)
