@@ -1,8 +1,10 @@
 # HF-RAG
 
 This is the repository for the paper: `HF-RAG: Hierarchical Fusion-based Retrieval-Augmented Generation with Multiple Sources and Rankers`.
+The codes will be released in more detail after publication.
 
 This repository allows the replication of all results reported in the papers. In particular, it is organized as follows:
+- [Implementation Details] (#Implementation Details)
 - [Prerequisites](#Prerequisites)
 - [Data Preparation](#Data-Preparation)
   - [Data Preprocessing](#Data-Preprocessing)
@@ -19,12 +21,8 @@ This repository allows the replication of all results reported in the papers. In
     - [LU-RAG](#LU-RAG)
     - [HF-RAG](#HF-RAG)
  
-## Iplementation Details
+## Implementation Details
 In particular, for our experiments, we use two LLMs with different ranges of sizes: a) Llama-2.0 (70B), a relatively large-sized LLM, and b) Mistral (7B), a much smaller LLM. The SFT approaches (ROBERTA, LoRA, and CORRECT) were trained on the FEVER training set for 10 epochs in batches of size $8$ with the AdamW optimizer employing a learning rate of $5e-5$.
-
-While performing hyperparameter tuning, we prepared our dev set with randomly selected $10\%$ of the training instances.
-For finetuning the supervised approaches in our experiments (specifically, \rob~\cite{liu2019roberta} and \lora~\cite{hu2021lora}; more details are given in Section \ref{ss:methods}), we use source training dataset for $10$ epochs using AdamW~\citep{loshchilov2018decoupled} as the optimizer with a learning rate of $5e-5$; the training batch size used was $8$.  Additionally, we apply LORA~\cite{hu2021lora} for tuning Llama for 10 epochs.
-
 Additionally, for retrieval we use Pyserini, a widely adopted toolkit for retrieval tasks. In particular, for dense retrievers, we employ FAISS indexing to enable efficient approximate nearest neighbor (ANN) search. 
 All the experiments are done using NVIDIA A6000 (48GB) and A5000 (24GB) GPU.
 
@@ -151,23 +149,6 @@ For this paper, we uniformly retrieved the top 50 candidates.
   --batch-size 64 \
   --threads 4 \
   --hits 50
-```
-### Two-stage Ranker
-In our retrieve-and-rerank approach, we first retrieve the top 100 candidate documents using the same configurations as our single-stage retriever, and then re-ranks (also configured identically as explained in single-stage retriever) to narrow these down to the top 50 documents.
-#### BM25»MonoT5
-
-
-
-
-## Post-processing
-### For Single-stage
-Download the ```train.jsonl``` file from https://fever.ai/dataset/fever.html. (As we have used Fever training data as source data)
-```
-
-
-### For Two-stage
-```
-The post-processing for BM25>>MonoT5 is as follows:
 ```
 
 
