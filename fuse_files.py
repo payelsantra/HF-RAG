@@ -31,57 +31,31 @@ def parse_trec_file_with_zscores(filepath, top_k=50):
 
 def main(args):
     # Load evidence text
-    with open("/media/pbclab/Elements/Fact_verification/bert/collection_file/wiki_collection_sen_proper_abc_dict.pickle", 'rb') as f:
+    with open("/collection_file/wiki_collection_sen_proper_abc_dict.pickle", 'rb') as f:
         evidence_text = pickle.load(f)
 
     # Load in-domain evidence
     evidence_indom = {}
-    with open("/media/pbclab/Elements/Fact_verification/bert/fever_dataset/train.jsonl", 'r', encoding='utf-8') as f:
+    with open("/fever/data/train.jsonl", 'r', encoding='utf-8') as f:
         for line in f:
             json_obj = json.loads(line.strip())
             evidence_indom[json_obj['id']] = (json_obj['claim'], json_obj['label'])
 
     # Load test data
-    test_data = pd.read_csv('/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/fever/data/shared_task_dev_fever_data.csv')
-    # test_data = pd.read_csv("/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/Cilmate_fever/dataset/3_class/climate_fever_test_data_wo_defuted.csv")
+    test_data = pd.read_csv('/fever/data/shared_task_dev_fever_data.csv')
     id_claim_dict = dict(zip(list(test_data['id']), list(test_data['claim'])))
     id_label_dict = dict(zip(list(test_data['id']), list(test_data['label'])))
 
-    # test_data = pd.read_csv('/media/pbclab/Elements/prompt/prompt_2/sciFact/data/scifact_dataset_unique_claim/3_class/unique_test.csv')
-    # id_claim_dict=dict(zip(test_data['Claim_id'],test_data['Claim']))
-    # id_label_dict=dict(zip(test_data['Claim_id'],test_data['label']))
-
-# rank_files = [
-#     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/Cilmate_fever/BM25_retrived/retrieved_result/wiki18/bm25_CF_test_wiki_ret.txt',
-#     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/Cilmate_fever/colbert/retrieved_pyserini/wiki_ret_CF_wo_refuted_colbert_results.txt',
-#     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/Cilmate_fever/contriever/retreived_pyserini/wiki_ret_CF_wo_refuted_results_contriever.txt',
-#     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/Cilmate_fever/BM25_retrived/monot5/wiki_CF_bm25_monot5_FeverTr_converted.txt',
-#     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/Cilmate_fever/BM25_retrived/retrieved_result/indomain/bm25_CFtest_combined_indom.txt',
-#     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/Cilmate_fever/colbert/retrieved_pyserini/colbined_ret_climatefever_colbert_combined_indom.txt',
-#     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/Cilmate_fever/contriever/retreived_pyserini/colbined_ret_climatefever_contriever_combined_indom.txt',
-#     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/Cilmate_fever/BM25_retrived/monot5/bm25_monot5_CF_feverTr_combined_indom_converted.txt'
-# ]
-
-    # rank_files = [
-    #     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/scifact/bm25_ret/bm25_Scifact_test_wiki_ret.txt',
-    #     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/scifact/colbert/wiki_ret_Scifact_results_colbert.txt',
-    #     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/scifact/contriever/wiki_ret_Scifact_results_contriever.txt',
-    #     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/scifact/bm25_ret/MONOT5/Avrg_Weighted/wiki_scifact_bm25_monot5_weighted_avrg.txt',
-    #     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/scifact/bm25_ret/bm25_scifact_test_combinedFEVER_ret.txt',
-    #     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/scifact/colbert/colbined_ret_SCifact_clbert_results.txt',
-    #     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/scifact/contriever/combined/colbined_ret_SCifact_contriever_results.txt',
-    #     '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/scifact/bm25_ret/MONOT5/Avrg_Weighted/bm25_monot5_scifact_feverTr_weightedAvg_ret_normalized_combined_indom.txt'
-    # ]
 
     rank_files = [
-    '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/fever/bm25_ret/bm25_fever_test_wiki_ret.txt',
-    '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/fever/colbert/wiki_ret_fever_results_colbert.txt',
-    '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/fever/contriever/wiki_ret_fever_results_contriever.txt',
-    '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/fever/bm25_ret/monot5/wiki_Fevertest_bm25_monot5_FeverTr_converted.txt',
-    '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/fever/bm25_ret/bm25_Fever_test_combinedFEVERtr_ret.txt',
-    '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/fever/colbert/combined_ret_fever_clbert_results.txt',
-    '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/fever/contriever/combined_ret_fever_contriever_results.txt',
-    '/media/pbclab/Expansion1/phd_new/my_desktop/payel/Fact_verification/emnlp_extension/fever/bm25_ret/monot5/bm25_monot5_Fevertest_FevertR_combined_indom_converted.txt'
+    '/fever/bm25_ret/bm25_wiki.txt',   #from external collection
+    '/fever/colbert/colbert_wiki.txt',   #from external collection
+    '/fever/contriever/contriever_wiki.txt',   #from external collection
+    '/fever/bm25_ret/monot5/bm25_monot5_wiki.txt',   #from external collection
+    '/fever/bm25_ret/bm25_indom.txt',   #from indomain Fever training
+    '/fever/colbert/clbert_results_indom.txt',  #from indomain Fever training
+    '/fever/contriever/contriever_results_indom.txt',  #from indomain Fever training
+    '/monot5/bm25_monot5_indom.txt'  #from indomain Fever training
 ]
 
 
