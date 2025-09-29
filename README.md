@@ -15,6 +15,7 @@ This repository allows the replication of all results reported in the papers. In
 - [Post-processing](#post-processing)
   - [For Single-stage](#forSingle-stage)
   - [For Two-stage](#forTwo-stage)
+- [Fusion](#Fusion)
 -  [Replicating Results](#Replicating-Results)
     - [L-RAG](#L-RAG)
     - [U-RAG](#U-RAG)
@@ -149,9 +150,11 @@ For this paper, we uniformly retrieved the top 50 candidates.
   --threads 4 \
   --hits 50
 ```
-
-
-
+## Fusion
+After collecting all the RL from both the corpus, compute fusion across rankers (using RRF) and then across sources (using Z-Score)
+```
+python3 fuse_files.py --output_dir Outputs/ --agg_method sum ----top_k 50
+```
 ## Replicating Results
 ### L-RAG
 ```
